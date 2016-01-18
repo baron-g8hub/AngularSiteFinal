@@ -11,7 +11,7 @@ namespace MaynoothFloristSite.Controllers
     public class ManageProductController : Controller
     {
         private FlowersdbEntities db = new FlowersdbEntities();
-                
+
         // GET: ManageProduct
         public ActionResult Index()
         {
@@ -38,26 +38,28 @@ namespace MaynoothFloristSite.Controllers
         public ActionResult Create()
         {
             PopulateTypeIdDropDownList();
-            PopulateImageUrlDropDownList();
 
             return View();
         }
 
         // POST: ManageProduct/Create
         [HttpPost]
-        public ActionResult Create(Product product)
+        public ActionResult Create(Product product, HttpPostedFileBase file)
         {
+            string path = Server.MapPath("~/Products" + file.FileName);
+
             try
             {
                 // TODO: Add insert logic here
                 if (ModelState.IsValid)
                 {
+
+                    product.Image = path;
                     db.Products.Add(product);
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
                 PopulateTypeIdDropDownList(product.TypeId);
-                PopulateImageUrlDropDownList(product.Image);
                 return View(product);
             }
             catch
@@ -105,7 +107,15 @@ namespace MaynoothFloristSite.Controllers
                 return View();
             }
         }
-       
+        private void PopulateTypeIdDropDownList(object selectedId = null)
+        {
+            var ProductTypesQuery = from d in db.ProductTypes
+                                    orderby d.Name
+                                    select d;
+            ViewBag.TypeId = new SelectList(ProductTypesQuery, "Id", "Name", selectedId);
+        }
+
+
         // GET: ManageProduct/Delete/5
         [HttpGet]
         public ActionResult Delete(int? id)
@@ -164,22 +174,6 @@ namespace MaynoothFloristSite.Controllers
             {
                 return View();
             }
-        }
-
-        private void PopulateTypeIdDropDownList(object selectedId = null)
-        {
-            var ProductTypesQuery = from d in db.ProductTypes
-                                    orderby d.Name
-                                    select d;
-            ViewBag.TypeId = new SelectList(ProductTypesQuery, "Id", "Name", selectedId);
-        }
-
-        private void PopulateImageUrlDropDownList(object selectedId = null)
-        {
-            var ProductImageQuery = from d in db.Products
-                                    orderby d.Image
-                                    select d;
-            ViewBag.ImageUrl = new SelectList(ProductImageQuery, "Id", "Image", selectedId);
         }
     }
 }

@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\Image.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -292,10 +293,11 @@
     <Content Include="Views\Home\ProductDisplay.cshtml" />
     <Content Include="Views\ManageProduct\Edit.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
+    <Content Include="Views\Tester\Index.cshtml" />
+    <Content Include="Views\Tester\Upload.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Tester\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -8,16 +8,16 @@
 
 
 @*<div class="jumbotron">
-    <div class="container">
-        <h2>Welcome to Maynooth Florist!</h2>
-        <p>This is an example for jumbotron.</p>
+        <div class="container">
+            <h2>Welcome to Maynooth Florist!</h2>
+            <p>This is an example for jumbotron.</p>
 
-        <a class="btn btn-primary btn-lg" role="button">
-            Order Now!
-        </a>
+            <a class="btn btn-primary btn-lg" role="button">
+                Order Now!
+            </a>
 
-    </div>
-</div>*@
+        </div>
+    </div>*@
 
 <div class="container">
     <style>
@@ -38,19 +38,21 @@
             {
                 <li>
 
-                    <div onclick="showModal('@item.Name','@item.Price','@item.Image','@item.Description')">
+                    <a href="#myModal" data-toggle="modal" data-img-url="@Url.Content("~/Products/")@Html.DisplayFor(modelItem => item.Image)" onclick="GetItem('@item.Name','@item.Price','@item.Description')">
 
-                        <a href="#">
+                        <div>
+
                             <img src="@Url.Content("~/Products/")@Html.DisplayFor(modelItem => item.Image)" alt="Product Image" class="img-thumbnail img-rounded" width="160" height="179" />
-                        </a>
-                        <br />
-                        @Html.DisplayFor(modelItem => item.Name)
-                        <br />
-                        <h4>
-                            €  @Html.DisplayFor(modelItem => item.Price)
-                        </h4>
-                    </div>
 
+                            <br />
+                            @Html.DisplayFor(modelItem => item.Name)
+                            <br />
+                            <h4>
+                                €  @Html.DisplayFor(modelItem => item.Price)
+                            </h4>
+                        </div>
+
+                    </a>
                 </li>
 
             }
@@ -67,17 +69,16 @@
 
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title" id="myModalLabel">
-                  
-                </h4>
+                <h4 class="modal-title" id="myModalLabel"></h4>
             </div>
             <div class="modal-body">
 
                 <ul>
                     <li>
                         <div>
-                            
-                            <img src="" id="itemImageUrl" alt="Product Image" class="img-thumbnail img-rounded" width="300" height="179" />
+
+                            <img alt="Product Image" class="img-thumbnail img-rounded" width="300" height="179" />
+
                             <br />
                             <h4>
                                 €   <input type="text" id="itemPrice" />
@@ -97,19 +98,21 @@
     </div>
 </div>
 
+
+
 @section Scripts {
 
     <script type="text/javascript">
 
-        function showModal(name, price, imageUrl, description) {
+        function GetItem(name, price, description) {
 
-            console.log(name + price + description, imageUrl);
+            console.log(name + price + description);
 
             //alert(name + price);
 
             //imageUrl.toString();
-         
-            $('#myModal').modal('show');
+
+            //$('#myModal').modal('show');
 
             $('h4.modal-title').text(name);
             $(".modal-body #itemName").val(name);
@@ -117,12 +120,17 @@
 
             //$(".modal-body #itemImageUrl").val(imageUrl);
 
-            $(".modal-body #itemImageUrl").attr('src', '@Url.Content("~/Products/")');
-                    
+            //$(".modal-body #itemImageUrl").attr('src', '@Url.Content("~/Products/' + itemImageUrl + '")');
+
             $(".modal-body #itemDescription").val(description);
-        
+
 
         }
+
+        $('li a').click(function (e) {
+            $('#myModal img').attr('src', $(this).attr('data-img-url'));
+
+        });
 
     </script>
 }

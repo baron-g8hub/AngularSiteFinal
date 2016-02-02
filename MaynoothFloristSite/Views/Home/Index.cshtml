@@ -7,7 +7,7 @@
 <h2>Gallery</h2>
 
 
-<div class="jumbotron">
+@*<div class="jumbotron">
     <div class="container">
         <h2>Welcome to Maynooth Florist!</h2>
         <p>This is an example for jumbotron.</p>
@@ -17,7 +17,7 @@
         </a>
 
     </div>
-</div>
+</div>*@
 
 <div class="container">
     <style>
@@ -59,6 +59,7 @@
 
 </div>
 
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog" role="document">
@@ -75,7 +76,8 @@
                 <ul>
                     <li>
                         <div>
-                            <img src="~/Products/weddingflower.jpg" alt="Product Image" class="img-thumbnail img-rounded" width="300" height="179" />
+                            
+                            <img src="" id="itemImageUrl" alt="Product Image" class="img-thumbnail img-rounded" width="300" height="179" />
                             <br />
                             <h4>
                                 €   <input type="text" id="itemPrice" />
@@ -101,19 +103,24 @@
 
         function showModal(name, price, imageUrl, description) {
 
-            console.log(name + price + description);
+            console.log(name + price + description, imageUrl);
 
             //alert(name + price);
+
+            //imageUrl.toString();
 
             $('#myModal').modal('show');
 
             $('h4.modal-title').text(name);
-
-            $(".modal-body #itemImageUrl").val(imageUrl);
             $(".modal-body #itemName").val(name);
             $(".modal-body #itemPrice").val(price);
-            $(".modal-body #itemDescription").val(description);
 
+            //$(".modal-body #itemImageUrl").val(imageUrl);
+
+            $(".modal-body #itemImageUrl").attr('src', '@Url.Content("~/Products/")');
+                    
+            $(".modal-body #itemDescription").val(description);
+        
 
         }
 

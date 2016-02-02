@@ -19,7 +19,7 @@ namespace MaynoothFloristSite.Controllers
             return View(db.Products.ToList());
 
         }
-
+               
         // GET: ManageProduct/Details/5
         public ActionResult Details(int? id)
         {
@@ -43,10 +43,17 @@ namespace MaynoothFloristSite.Controllers
         }
 
         // POST: ManageProduct/Create
-        [HttpPost]
+        //[HttpPost]
         public ActionResult Create(Product product, HttpPostedFileBase file)
         {
-            string path = Server.MapPath("~/Products" + file.FileName);
+           //tring path = Server.MapPath("~/Products/" + file.FileName);
+            string ImageName = System.IO.Path.GetFileName(file.FileName);
+            string physicalPath = Server.MapPath("~/Products/" + ImageName);
+
+            product.Image = ImageName;
+
+            // save image in folder
+            file.SaveAs(physicalPath);
 
             try
             {
@@ -54,7 +61,7 @@ namespace MaynoothFloristSite.Controllers
                 if (ModelState.IsValid)
                 {
 
-                    product.Image = path;
+                
                     db.Products.Add(product);
                     db.SaveChanges();
                     return RedirectToAction("Index");

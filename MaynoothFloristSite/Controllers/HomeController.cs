@@ -20,6 +20,10 @@ namespace MaynoothFloristSite.Controllers
             return View(db.Products.ToList());
         }
 
+        public ActionResult ShowItem()
+        {
+            return PartialView("_ShowItem");
+        }
 
         public ActionResult IndexVM()
         {

@@ -16,9 +16,9 @@ namespace MFlorist.DataAccessLayer
         public virtual DbSet<ProductType> ProductTypes { get; set; }
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
 
-        protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        {
-            throw new UnintentionalCodeFirstException();
-        }
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    throw new UnintentionalCodeFirstException();
+        //}
     }
 }
